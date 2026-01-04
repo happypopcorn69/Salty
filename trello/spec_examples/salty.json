@@ -1,0 +1,96 @@
+{
+  "board": {
+    "name": "SALTY | saltworks",
+    "desc": "Static site build board: taboo word constraint + evolution angle + electrolyte doctrine. (Forbidden S-word: never appears in copy.)",
+    "prefs_permissionLevel": "private",
+    "defaultLists": false
+  },
+  "lists": [
+    {
+      "name": "00 COMMAND",
+      "pos": 1
+    },
+    {
+      "name": "10 BACKLOG",
+      "pos": 2
+    },
+    {
+      "name": "20 NEXT",
+      "pos": 3
+    },
+    {
+      "name": "30 DOING",
+      "pos": 4
+    },
+    {
+      "name": "40 REVIEW",
+      "pos": 5
+    },
+    {
+      "name": "50 SHIPPED",
+      "pos": 6
+    }
+  ],
+  "labels": [
+    {
+      "name": "copy",
+      "color": "yellow"
+    },
+    {
+      "name": "design",
+      "color": "sky"
+    },
+    {
+      "name": "rule",
+      "color": "red"
+    },
+    {
+      "name": "qa",
+      "color": "green"
+    }
+  ],
+  "cards": [
+    {
+      "name": "Taboo scan rule",
+      "list": "00 COMMAND",
+      "desc": "Copy must contain zero instances of the forbidden S-word (and obvious variants).",
+      "labels": [
+        "rule",
+        "qa"
+      ],
+      "checklist": {
+        "name": "Scan",
+        "items": [
+          "index.html scanned",
+          "styles.css scanned",
+          "meta tags scanned"
+        ]
+      }
+    },
+    {
+      "name": "Evolution section: endurance advantage",
+      "list": "10 BACKLOG",
+      "desc": "Explain heat management and endurance hunting without using the forbidden term.",
+      "labels": [
+        "copy"
+      ]
+    },
+    {
+      "name": "Brand lockup: SALTY primary, saltworks secondary",
+      "list": "20 NEXT",
+      "desc": "Ensure nav/logo/title lockup follows hierarchy across pages.",
+      "labels": [
+        "design",
+        "qa"
+      ]
+    },
+    {
+      "name": "QA pass: mobile, accessibility basics, performance",
+      "list": "40 REVIEW",
+      "desc": "Run a quick pass for layout breakage, contrast, and obvious perf footguns.",
+      "labels": [
+        "qa"
+      ]
+    }
+  ]
+}

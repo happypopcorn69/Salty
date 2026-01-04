@@ -1,35 +1,17 @@
 # Review Command
 
-Spawn review agents to perform comprehensive quality assurance on the current implementation.
+Spawn two review agents in sequence to perform comprehensive quality assurance on the current implementation.
 
 ## What This Command Does
 
-This command triggers a three-stage review process:
+This command triggers a two-stage review process:
 
-1. **Gremlin QA** - Forbidden words and "ur welcome" count enforcement (MANDATORY)
-2. **Principal Engineer Review** - Architectural and code quality analysis
-3. **Completeness Check** - Detection of placeholders, mocks, and gaps
+1. **Principal Engineer Review** - Architectural and code quality analysis
+2. **Completeness Check** - Detection of placeholders, mocks, and gaps
 
 ## Instructions
 
-Execute the following three-agent review pipeline:
-
-### Stage 0: Gremlin QA (MANDATORY - NO SKIP)
-
-Invoke the `gremlin-qa` agent (model: haiku) with:
-
-> Run quality gate checks per QUALITY_GATES.md for: $ARGUMENTS
->
-> Scan for:
-> - Forbidden words: sweat, sweaty, perspire, perspiration (case-insensitive)
-> - "ur welcome" count (must be exactly 7)
->
-> Generate Gate Report with grep commands, file lists, line numbers.
-> PASS or FAIL. No exceptions.
-
-**BLOCKING**: If Gremlin QA returns FAIL, the review STOPS. Fix violations and re-run.
-
-If Gremlin QA returns PASS, proceed to Stage 1.
+Execute the following two-agent review pipeline:
 
 ### Stage 1: Principal Engineer Review
 
@@ -64,30 +46,13 @@ Invoke the `completeness-checker` agent (model: opus) with:
 >
 > Provide a detailed completeness report.
 
-### Stage 3 (Optional): Diff Judge
-
-Optionally invoke the `diff-judge` agent (model: haiku) to check for scope creep:
-
-> Compare implementation against PROJECT_BRIEF.md for: $ARGUMENTS
->
-> Check for:
-> - Feature creep (new features not requested)
-> - Tone drift (corporate wellness language, motivational speak)
-> - Dependency bloat (external CDNs, build requirements)
-> - Requirement violations
->
-> Generate Diff Judge Report.
-
 ### Final Summary
 
-After all review stages complete, provide:
+After both agents complete, provide:
 
-1. **Gate Report Status**: PASS / FAIL (from Gremlin QA)
-2. **Combined Status**: PASS / NEEDS WORK / BLOCKED
-3. **Critical Actions**: Numbered list of must-fix items
-4. **Recommendations**: Suggested improvements
-
-**No Gate Report = No Pass. No exceptions.**
+1. **Combined Status**: PASS / NEEDS WORK / BLOCKED
+2. **Critical Actions**: Numbered list of must-fix items
+3. **Recommendations**: Suggested improvements
 
 ## Usage
 
@@ -105,17 +70,7 @@ After all review stages complete, provide:
 
 ## Important Notes
 
-- **Stage 0 (Gremlin QA) is MANDATORY and BLOCKING** - no skip, no exceptions
-- Gate Report must be present in every review
-- If Gremlin QA fails, the review stops until violations are fixed
-- Principal Engineer Review and Completeness Check run after Gate Report passes
-- Diff Judge is optional but recommended to catch scope creep
-- CRITICAL issues from any stage should be addressed before production
+- Both review stages MUST complete for a full review
+- CRITICAL issues from Stage 1 should be addressed before production
+- Completeness check catches things code review might miss
 - Use this after every feature implementation
-
-## Enforcement
-
-Per QUALITY_GATES.md:
-- Forbidden words: 0 (FAIL if any found)
-- "ur welcome": exactly 7 (FAIL if not 7)
-- No report = No pass

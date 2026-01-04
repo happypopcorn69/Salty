@@ -1,0 +1,103 @@
+{
+  "board": {
+    "name": "Mirror Project",
+    "desc": "Spec-driven Trello board creation utility. Trello is the reflection; JSON is the source of truth.",
+    "prefs_permissionLevel": "private",
+    "defaultLists": false
+  },
+  "lists": [
+    {
+      "name": "00 COMMAND",
+      "pos": 1
+    },
+    {
+      "name": "10 BACKLOG",
+      "pos": 2
+    },
+    {
+      "name": "20 NEXT",
+      "pos": 3
+    },
+    {
+      "name": "30 DOING",
+      "pos": 4
+    },
+    {
+      "name": "40 REVIEW",
+      "pos": 5
+    },
+    {
+      "name": "50 SHIPPED",
+      "pos": 6
+    },
+    {
+      "name": "90 PARKING LOT",
+      "pos": 7
+    }
+  ],
+  "labels": [
+    {
+      "name": "rule",
+      "color": "red"
+    },
+    {
+      "name": "infra",
+      "color": "blue"
+    },
+    {
+      "name": "spec",
+      "color": "purple"
+    },
+    {
+      "name": "qa",
+      "color": "green"
+    }
+  ],
+  "cards": [
+    {
+      "name": "Spec is the source of truth",
+      "list": "00 COMMAND",
+      "desc": "No hand-editing boards in the wild. Update the JSON spec and re-run.",
+      "labels": [
+        "rule",
+        "spec"
+      ],
+      "checklist": {
+        "name": "DoD",
+        "items": [
+          "Spec committed",
+          "Board created",
+          "Counts verified",
+          "No secrets leaked"
+        ]
+      }
+    },
+    {
+      "name": "Implement trello_init.py (stdlib-only)",
+      "list": "20 NEXT",
+      "desc": "Create board, lists, labels, cards, checklists. Print safe summary with board URL.",
+      "labels": [
+        "infra",
+        "spec",
+        "qa"
+      ]
+    },
+    {
+      "name": "Add /trello-init Claude command",
+      "list": "20 NEXT",
+      "desc": "Planning-agent generates spec; trello-operator executes; /review validates.",
+      "labels": [
+        "infra",
+        "spec"
+      ]
+    },
+    {
+      "name": "Add spec examples (Mirror Project + SALTY)",
+      "list": "10 BACKLOG",
+      "desc": "Mirror Project as default. SALTY as content-heavy example with taboo constraints.",
+      "labels": [
+        "spec"
+      ]
+    }
+  ]
+}

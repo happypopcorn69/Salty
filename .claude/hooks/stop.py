@@ -68,47 +68,31 @@ def check_recent_files_for_incomplete() -> list[str]:
     project_dir = Path(os.environ.get("CLAUDE_PROJECT_DIR", os.getcwd()))
     
     # Check files modified in the last hour (rough heuristic)
-    # Cross-platform implementation using pathlib instead of Unix find command
     try:
-        from pathlib import Path
-        import time
-
-        current_time = time.time()
-        one_hour_ago = current_time - (60 * 60)
-
-        recent_files = []
-        exclude_dirs = {'.git', 'node_modules', '__pycache__', '.venv', 'venv'}
-
-        # Walk the project directory
-        for path in Path(project_dir).rglob('*'):
-            # Skip directories and excluded paths
-            if path.is_dir():
-                continue
-            if any(excluded in path.parts for excluded in exclude_dirs):
-                continue
-
-            # Check if modified in last hour
-            try:
-                if path.stat().st_mtime >= one_hour_ago:
-                    recent_files.append(str(path))
-            except (OSError, PermissionError):
-                continue
-
+        import subprocess
+        result = subprocess.run(
+            ["find", str(project_dir), "-type", "f", "-mmin", "-60", 
+             "-not", "-path", "*/.git/*", "-not", "-path", "*/node_modules/*"],
+            capture_output=True, text=True
+        )
+        
+        recent_files = result.stdout.strip().split("\n")
+        
         for file_path in recent_files[:20]:  # Check up to 20 files
-            if not os.path.exists(file_path):
+            if not file_path or not os.path.exists(file_path):
                 continue
-
+                
             try:
                 with open(file_path, "r", errors="ignore") as f:
                     content = f.read()
-
+                    
                 for indicator in INCOMPLETE_INDICATORS:
                     if indicator.lower() in content.lower():
                         issues.append(f"{file_path}: contains '{indicator}'")
                         break
-            except (OSError, PermissionError):
-                continue
-
+            except:
+                pass
+                
     except Exception as e:
         pass  # Don't block on errors
     

@@ -272,3 +272,16 @@ Edit `.claude/settings.json`:
 ## 📝 License
 
 MIT - Use freely, modify as needed.
+
+
+---
+
+## 🪞 Mirror Project (Trello)
+
+This repo now includes a spec-driven Trello board initializer.
+
+- Docs: `docs/MIRROR_PROJECT.md`
+- Script: `scripts/trello_init.py`
+- Example specs: `trello/spec_examples/`
+- Claude command: `.claude/commands/trello-init.md`
+- Agent: `.claude/agents/trello-operator.md`
